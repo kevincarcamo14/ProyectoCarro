@@ -1,6 +1,6 @@
 package accesoadatos;
 
-//Recuerde importar la biblioteca de conexión
+//Recuerde importar la biblioteca de conexiónnn
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;

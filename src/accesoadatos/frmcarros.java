@@ -9,10 +9,10 @@ import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 
 
-public class frmClientes extends javax.swing.JFrame {
+public class frmcarros extends javax.swing.JFrame {
 
     ResultSet rs = null;
-    Clientes cl = new Clientes(); //instancia de la clase Clientes
+    carros cl = new carros(); //instancia de la clase Clientes
     boolean registro = false;
     boolean prueba = false;
     boolean newRecord = false;
@@ -20,7 +20,7 @@ public class frmClientes extends javax.swing.JFrame {
     int mayor = 0;
 
 
-    public frmClientes() {
+    public frmcarros() {
         initComponents();
     }
 
@@ -96,31 +96,31 @@ public class frmClientes extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Código de cliente:");
+        jLabel1.setText("Código :");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 120, 30));
 
         txtCodigoCliente.setEnabled(false);
         getContentPane().add(txtCodigoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 50, 20));
 
-        jLabel2.setText("Primer apellido:");
+        jLabel2.setText("Marca:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
         txtPrimerApellido.setEnabled(false);
         getContentPane().add(txtPrimerApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 240, 20));
 
-        jLabel3.setText("Segundo apellido:");
+        jLabel3.setText("Color:");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
         txtSegundoApellido.setEnabled(false);
         getContentPane().add(txtSegundoApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 240, 20));
 
-        jLabel4.setText("Nombre(s):");
+        jLabel4.setText("Modelo:");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
 
         txtNombre.setEnabled(false);
         getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 320, 20));
 
-        jLabel5.setText("Fecha de nacimiento:");
+        jLabel5.setText("Fecha");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 120, -1));
 
         try {
@@ -134,7 +134,7 @@ public class frmClientes extends javax.swing.JFrame {
         jLabel6.setText("(dd-MM-aaaa)");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, 100, -1));
 
-        jLabel7.setText("Celular:");
+        jLabel7.setText("Kilometraje:");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 60, -1));
 
         try {
@@ -143,18 +143,23 @@ public class frmClientes extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         ftxtCelular.setEnabled(false);
+        ftxtCelular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ftxtCelularActionPerformed(evt);
+            }
+        });
         getContentPane().add(ftxtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 110, -1));
 
-        jLabel8.setText("Sexo:");
+        jLabel8.setText("Tipo:");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
 
         btngSexo.add(rdbMasculino);
-        rdbMasculino.setText("Masculino");
+        rdbMasculino.setText("Automatico");
         rdbMasculino.setEnabled(false);
         getContentPane().add(rdbMasculino, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, -1, -1));
 
         btngSexo.add(rdbFemenino);
-        rdbFemenino.setText("Femenino");
+        rdbFemenino.setText("Estandar");
         rdbFemenino.setEnabled(false);
         getContentPane().add(rdbFemenino, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, -1, -1));
 
@@ -276,18 +281,18 @@ public class frmClientes extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (newRecord == true) {
             if (this.txtCodigoCliente.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Debe existir un código de cliente", "AVISO DEL SISTEMA", 2);
+                JOptionPane.showMessageDialog(rootPane, "Debe existir un código de carro", "AVISO DEL SISTEMA", 2);
             } else if (this.txtPrimerApellido.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo Primer apellido", "AVISO DEL SISTEMA", 2);
+                JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo marca", "AVISO DEL SISTEMA", 2);
                 this.txtPrimerApellido.requestFocus();
             } else if (this.txtNombre.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo Nombre", "AVISO DEL SISTEMA", 2);
+                JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo modelo", "AVISO DEL SISTEMA", 2);
                 this.txtNombre.requestFocus();
             } else if (this.ftxtFechaNacimiento.getText().equals("  /  /    ")) {
-                JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo FECHA DE NACIMIENTO!!", "AVISO DEL SISTEMA", 2);
+                JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo FECHA !!", "AVISO DEL SISTEMA", 2);
                 this.ftxtFechaNacimiento.requestFocus();
             } else if (rdbMasculino.isSelected()== false && rdbFemenino.isSelected()==false){
-                JOptionPane.showMessageDialog(rootPane, "Debe elegir el sexo", "AVISO DEL SISTEMA", 2);
+                JOptionPane.showMessageDialog(rootPane, "Debe elegir el tipo", "AVISO DEL SISTEMA", 2);
                 rdbMasculino.requestFocus();
             } else if (!this.ftxtFechaNacimiento.getText().equals("  /  /    ")) {
                 //validar fecha 
@@ -345,7 +350,7 @@ public class frmClientes extends javax.swing.JFrame {
                     }
                 } else {
                     if (this.ftxtCelular.getText().equals("7   -    ")) {
-                        JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo CELULAR!!", "AVISO DEL SISTEMA", 2);
+                        JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo kilometraje!!", "AVISO DEL SISTEMA", 2);
                         this.ftxtCelular.requestFocus();
                     } else {
                         //atentos, el sexo está con radio buttons
@@ -365,7 +370,7 @@ public class frmClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        String codigo = JOptionPane.showInputDialog("Ingrese el código de empleado a búscar:");
+        String codigo = JOptionPane.showInputDialog("Ingrese el código de csrro a búscar:");
         rs = cl.buscar(codigo);
         try {
             while (rs.next()) {
@@ -399,18 +404,18 @@ public class frmClientes extends javax.swing.JFrame {
     private void btnGuardarModificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarModificacionActionPerformed
         if (prueba == true) {
             if (this.txtCodigoCliente.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Debe existir un código de cliente", "AVISO DEL SISTEMA", 2);
+                JOptionPane.showMessageDialog(rootPane, "Debe existir un código de carro", "AVISO DEL SISTEMA", 2);
             } else if (this.txtPrimerApellido.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo Primer apellido", "AVISO DEL SISTEMA", 2);
+                JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo marca", "AVISO DEL SISTEMA", 2);
                 this.txtPrimerApellido.requestFocus();
             } else if (this.txtNombre.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo Nombre", "AVISO DEL SISTEMA", 2);
+                JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo modelo", "AVISO DEL SISTEMA", 2);
                 this.txtNombre.requestFocus();
             } else if (this.ftxtFechaNacimiento.getText().equals("  /  /    ")) {
-                JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo FECHA DE NACIMIENTO!!", "AVISO DEL SISTEMA", 2);
+                JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo FECHA!!", "AVISO DEL SISTEMA", 2);
                 this.ftxtFechaNacimiento.requestFocus();
             } else if (rdbMasculino.isSelected()== false && rdbFemenino.isSelected()==false){
-                JOptionPane.showMessageDialog(rootPane, "Debe elegir el sexo", "AVISO DEL SISTEMA", 2);
+                JOptionPane.showMessageDialog(rootPane, "Debe elegir el tipo", "AVISO DEL SISTEMA", 2);
                 rdbMasculino.requestFocus();
             } else if (!this.ftxtFechaNacimiento.getText().equals("  /  /    ")) {
                 Date fechaActual = new Date();
@@ -466,8 +471,8 @@ public class frmClientes extends javax.swing.JFrame {
                         this.ftxtFechaNacimiento.requestFocus();
                     }
                 } else {
-                    if (this.ftxtCelular.getText().equals("7   -    ")) {
-                        JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo CELULAR!!", "AVISO DEL SISTEMA", 2);
+                    if (this.ftxtCelular.getText().equals("p")) {
+                        JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo kilometraje!!", "AVISO DEL SISTEMA", 2);
                         this.ftxtCelular.requestFocus();
                     } else {
                         if (rdbMasculino.isSelected()==true){
@@ -517,13 +522,17 @@ public class frmClientes extends javax.swing.JFrame {
         Bloquear();
     }//GEN-LAST:event_formFocusGained
 
+    private void ftxtCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftxtCelularActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ftxtCelularActionPerformed
+
     /**
     * @param args the command line arguments
     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmClientes().setVisible(true);
+                new frmcarros().setVisible(true);
             }
         });
     }

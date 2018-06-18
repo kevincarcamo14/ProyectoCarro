@@ -7,12 +7,12 @@ public class carros {
     //instanciar un objeto de tipo Conexion
     Conexion cn = new Conexion();
 
-    public void insertar(String codigo, String apellido1, String apellido2, String nombre, String fechaNacimiento, String sexo, String celular) {
-        cn.UID("INSERT INTO clientes(codigo,apellido1,apellido2,nombre,fechaNacimiento,sexo,celular) VALUES('" + codigo + "','" + apellido1 + "','" + apellido2 + "','" + nombre + "','" + fechaNacimiento + "','" + sexo + "','" + celular + "')");
+    public void insertar(String codigo, String marca, String color, String modelo, String fecha, String tipo, String kilometraje) {
+        cn.UID("INSERT INTO clientes(codigo,marca,color,modelo,fecha,tipo,kilometraje) VALUES('" + codigo + "','" + marca + "','" + color + "','" + modelo + "','" + fecha + "','" + tipo + "','" + kilometraje + "')");
     }
    
-    public void modificar(String codigo, String apellido1, String apellido2, String nombre, String fechaNacimiento, String sexo, String celular) {
-        cn.UID("UPDATE clientes SET apellido1='" + apellido1 + "',apellido2='" + apellido2 + "',nombre='" + nombre + "',fechaNacimiento='" + fechaNacimiento + "',sexo='" + sexo + "',celular='" + celular + "' WHERE codigo='" + codigo + "'");
+    public void modificar(String codigo, String marca, String color, String modelo, String fecha, String tipo, String kilometraje) {
+        cn.UID("UPDATE clientes SET apellido1='" + marca + "',color'" + color + "',modelo='" + modelo + "',fecha='" + fecha + "',tipo='" + tipo + "',kilometraje='" + kilometraje + "' WHERE codigo='" + codigo + "'");
     }
 
     public void eliminar(String codigo) {
@@ -24,14 +24,14 @@ public class carros {
     }
 
     public ResultSet contarRegistros() {
-        return (cn.getValores("SELECT COUNT(codigo) FROM clientes"));
+        return (cn.getValores("SELECT COUNT(codigo) FROM carros"));
     }
 
     public ResultSet mayorRegistro() {
-        return (cn.getValores("SELECT MAX(codigo) FROM clientes"));
+        return (cn.getValores("SELECT MAX(codigo) FROM carros"));
     }
 
     public ResultSet llenarTabla() {
-        return (cn.getValores("SELECT codigo,apellido1,nombre,celular FROM clientes"));
+        return (cn.getValores("SELECT codigo,marca,modelo,kilometraje FROM clientes"));
     }
 }
