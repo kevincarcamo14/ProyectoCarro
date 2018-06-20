@@ -22,6 +22,7 @@ public class frmcarros extends javax.swing.JFrame {
 
     public frmcarros() {
         initComponents();
+         this.setLocationRelativeTo(null);
     }
 
     private void Bloquear(){
