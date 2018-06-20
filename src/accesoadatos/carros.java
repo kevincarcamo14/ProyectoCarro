@@ -1,11 +1,12 @@
 package accesoadatos;
 
+import conexion.conexion;
 import java.sql.ResultSet;
 
 public class carros {
     
-    //instanciar un objeto de tipo Conexion
-    Conexion cn = new Conexion();
+    //instanciar un objeto de tipo conexion
+    conexion cn = new conexion();
 
     public void insertar(String codigo, String marca, String color, String modelo, String fecha, String tipo, String kilometraje) {
         cn.UID("INSERT INTO clientes(codigo,marca,color,modelo,fecha,tipo,kilometraje) VALUES('" + codigo + "','" + marca + "','" + color + "','" + modelo + "','" + fecha + "','" + tipo + "','" + kilometraje + "')");

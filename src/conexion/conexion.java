@@ -1,4 +1,4 @@
-package accesoadatos;
+package conexion;
 
 //Recuerde importar la biblioteca de conexiónnn
 import java.sql.Connection;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
-public class Conexion {
+public class conexion {
     
     private String url = "jdbc:mysql://localhost:3306/baseDeDatos";
     private String login = "root"; //Administrador de MySQL

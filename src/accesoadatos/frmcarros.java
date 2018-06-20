@@ -70,7 +70,6 @@ public class frmcarros extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         ftxtFechaNacimiento = new javax.swing.JFormattedTextField();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         ftxtCelular = new javax.swing.JFormattedTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -79,10 +78,10 @@ public class frmcarros extends javax.swing.JFrame {
         btnNuevo = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
-        btnGuardarModificacion = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        btnver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administración de clientes");
@@ -129,10 +128,12 @@ public class frmcarros extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         ftxtFechaNacimiento.setEnabled(false);
+        ftxtFechaNacimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ftxtFechaNacimientoActionPerformed(evt);
+            }
+        });
         getContentPane().add(ftxtFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 110, -1));
-
-        jLabel6.setText("(dd-MM-aaaa)");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, 100, -1));
 
         jLabel7.setText("Kilometraje:");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 60, -1));
@@ -190,15 +191,6 @@ public class frmcarros extends javax.swing.JFrame {
         });
         getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(323, 297, 140, 70));
 
-        btnGuardarModificacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/guardarCambios.png"))); // NOI18N
-        btnGuardarModificacion.setText("Guardar modificación");
-        btnGuardarModificacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarModificacionActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnGuardarModificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 450, 250, 60));
-
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/buscar.png"))); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -225,6 +217,15 @@ public class frmcarros extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 300, 150, 70));
+
+        btnver.setIcon(new javax.swing.ImageIcon("C:\\Users\\crist\\Downloads\\Nueva carpeta (3)\\accesoADatos\\build\\classes\\iconos\\_active__save.png")); // NOI18N
+        btnver.setText("Ver Datos");
+        btnver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnverActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnver, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 460, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -288,39 +289,29 @@ public class frmcarros extends javax.swing.JFrame {
             } else if (this.txtNombre.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo modelo", "AVISO DEL SISTEMA", 2);
                 this.txtNombre.requestFocus();
-            } else if (this.ftxtFechaNacimiento.getText().equals("  /  /    ")) {
+            } else if (this.ftxtFechaNacimiento.getText().equals("      ")) {
                 JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo FECHA !!", "AVISO DEL SISTEMA", 2);
                 this.ftxtFechaNacimiento.requestFocus();
             } else if (rdbMasculino.isSelected()== false && rdbFemenino.isSelected()==false){
                 JOptionPane.showMessageDialog(rootPane, "Debe elegir el tipo", "AVISO DEL SISTEMA", 2);
                 rdbMasculino.requestFocus();
-            } else if (!this.ftxtFechaNacimiento.getText().equals("  /  /    ")) {
+            } else if (!this.ftxtFechaNacimiento.getText().equals("    ")) {
                 //validar fecha 
                 Date fechaActual = new Date();
-                SimpleDateFormat formato = new SimpleDateFormat("yyyyMMdd");
+                SimpleDateFormat formato = new SimpleDateFormat("yyyy");
                 String cadenaFecha = formato.format(fechaActual);
-                String day = "" + cadenaFecha.charAt(6) + "" + cadenaFecha.charAt(7);
-                String month = "" + cadenaFecha.charAt(4) + "" + cadenaFecha.charAt(5);
+                
                 String year = "" + cadenaFecha.charAt(0) + "" + cadenaFecha.charAt(1) + "" + cadenaFecha.charAt(2) + "" + cadenaFecha.charAt(3);
-                int d = Integer.parseInt(day);
-                int m = Integer.parseInt(month);
+               
                 int y = Integer.parseInt(year);
                 String texto = this.ftxtFechaNacimiento.getText();
-                String dias = texto.charAt(0) + "" + texto.charAt(1);
-                String meses = texto.charAt(3) + "" + texto.charAt(4);
+                
                 String anios = texto.charAt(6) + "" + texto.charAt(7) + "" + texto.charAt(8) + "" + texto.charAt(9);
-                int dia = Integer.parseInt(dias);
-                int mes = Integer.parseInt(meses);
+                
                 int anio = Integer.parseInt(anios);
-                if ((dia <= 0) || (dia > 31)) {
-                    JOptionPane.showMessageDialog(rootPane, "El Dia de la fecha ingresada es invalida!!!", "AVISO DEL SISTEMA", 0);
-                    this.ftxtFechaNacimiento.setText("");
-                    this.ftxtFechaNacimiento.requestFocus();
-                } else if ((mes < 1) || (mes > 12)) {
-                    JOptionPane.showMessageDialog(rootPane, "El Mes de la fecha ingresada es invalida", "AVISO DEL SISTEMA", 0);
-                    this.ftxtFechaNacimiento.setText("");
-                    this.ftxtFechaNacimiento.requestFocus();
-                } else if ((anio > y)) {
+                
+                
+                 if ((anio > y)) {
                     JOptionPane.showMessageDialog(rootPane, "El Año de la fecha ingresada no puede ser mayor al año actual (" + y + ")!!!", "AVISO DEL SISTEMA", 0);
                     this.ftxtFechaNacimiento.setText("");
                     this.ftxtFechaNacimiento.requestFocus();
@@ -328,28 +319,9 @@ public class frmcarros extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(rootPane, "El Año de la fecha ingresada es incoherente!!!", "AVISO DEL SISTEMA", 0);
                     this.ftxtFechaNacimiento.setText("");
                     this.ftxtFechaNacimiento.requestFocus();
-                } else if ((anio == y) && (dia > d)) {
-                    if (d >= 10) {
-                        JOptionPane.showMessageDialog(rootPane, "El Dia de la fecha ingresada no puede ser mayor al dia actual (" + d + ")!!!", "AVISO DEL SISTEMA", 0);
-                        this.ftxtFechaNacimiento.setText("");
-                        this.ftxtFechaNacimiento.requestFocus();
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "El Dia de la fecha ingresada no puede ser mayor al dia actual (0" + d + ")!!!", "AVISO DEL SISTEMA", 0);
-                        this.ftxtFechaNacimiento.setText("");
-                        this.ftxtFechaNacimiento.requestFocus();
-                    }
-                } else if ((anio == y) && (mes > m)) {
-                    if (m >= 10) {
-                        JOptionPane.showMessageDialog(rootPane, "El Mes de la fecha ingresada no puede ser mayor al mes actual (" + m + ")!!!", "AVISO DEL SISTEMA", 0);
-                        this.ftxtFechaNacimiento.setText("");
-                        this.ftxtFechaNacimiento.requestFocus();
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "El Mes de la fecha ingresada no puede ser mayor al mes actual (0" + m + ")!!!", "AVISO DEL SISTEMA", 0);
-                        this.ftxtFechaNacimiento.setText("");
-                        this.ftxtFechaNacimiento.requestFocus();
-                    }
+                
                 } else {
-                    if (this.ftxtCelular.getText().equals("7   -    ")) {
+                    if (this.ftxtCelular.getText().equals("   ")) {
                         JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo kilometraje!!", "AVISO DEL SISTEMA", 2);
                         this.ftxtCelular.requestFocus();
                     } else {
@@ -401,98 +373,6 @@ public class frmcarros extends javax.swing.JFrame {
         Bloquear();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void btnGuardarModificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarModificacionActionPerformed
-        if (prueba == true) {
-            if (this.txtCodigoCliente.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Debe existir un código de carro", "AVISO DEL SISTEMA", 2);
-            } else if (this.txtPrimerApellido.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo marca", "AVISO DEL SISTEMA", 2);
-                this.txtPrimerApellido.requestFocus();
-            } else if (this.txtNombre.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo modelo", "AVISO DEL SISTEMA", 2);
-                this.txtNombre.requestFocus();
-            } else if (this.ftxtFechaNacimiento.getText().equals("  /  /    ")) {
-                JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo FECHA!!", "AVISO DEL SISTEMA", 2);
-                this.ftxtFechaNacimiento.requestFocus();
-            } else if (rdbMasculino.isSelected()== false && rdbFemenino.isSelected()==false){
-                JOptionPane.showMessageDialog(rootPane, "Debe elegir el tipo", "AVISO DEL SISTEMA", 2);
-                rdbMasculino.requestFocus();
-            } else if (!this.ftxtFechaNacimiento.getText().equals("  /  /    ")) {
-                Date fechaActual = new Date();
-                SimpleDateFormat formato = new SimpleDateFormat("yyyyMMdd");
-                String cadenaFecha = formato.format(fechaActual);
-                String day = "" + cadenaFecha.charAt(6) + "" + cadenaFecha.charAt(7);
-                String month = "" + cadenaFecha.charAt(4) + "" + cadenaFecha.charAt(5);
-                String year = "" + cadenaFecha.charAt(0) + "" + cadenaFecha.charAt(1) + "" + cadenaFecha.charAt(2) + "" + cadenaFecha.charAt(3);
-                int d = Integer.parseInt(day);
-                int m = Integer.parseInt(month);
-                int y = Integer.parseInt(year);
-                String texto = this.ftxtFechaNacimiento.getText();
-                String dias = texto.charAt(0) + "" + texto.charAt(1);
-                String meses = texto.charAt(3) + "" + texto.charAt(4);
-                String anios = texto.charAt(6) + "" + texto.charAt(7) + "" + texto.charAt(8) + "" + texto.charAt(9);
-                int dia = Integer.parseInt(dias);
-                int mes = Integer.parseInt(meses);
-                int anio = Integer.parseInt(anios);
-                if ((dia <= 0) || (dia > 31)) {
-                    JOptionPane.showMessageDialog(rootPane, "El Dia de la fecha ingresada es invalida!!!", "AVISO DEL SISTEMA", 0);
-                    this.ftxtFechaNacimiento.setText("");
-                    this.ftxtFechaNacimiento.requestFocus();
-                } else if ((mes < 1) || (mes > 12)) {
-                    JOptionPane.showMessageDialog(rootPane, "El Mes de la fecha ingresada es invalida", "AVISO DEL SISTEMA", 0);
-                    this.ftxtFechaNacimiento.setText("");
-                    this.ftxtFechaNacimiento.requestFocus();
-                } else if ((anio > y)) {
-                    JOptionPane.showMessageDialog(rootPane, "El Año de la fecha ingresada no puede ser mayor al año actual (" + y + ")!!!", "AVISO DEL SISTEMA", 0);
-                    this.ftxtFechaNacimiento.setText("");
-                    this.ftxtFechaNacimiento.requestFocus();
-                } else if ((anio < 1920)) {
-                    JOptionPane.showMessageDialog(rootPane, "El Año de la fecha ingresada es incoherente!!!", "AVISO DEL SISTEMA", 0);
-                    this.ftxtFechaNacimiento.setText("");
-                    this.ftxtFechaNacimiento.requestFocus();
-                } else if ((anio == y) && (dia > d)) {
-                    if (d >= 10) {
-                        JOptionPane.showMessageDialog(rootPane, "El Dia de la fecha ingresada no puede ser mayor al dia actual (" + d + ")!!!", "AVISO DEL SISTEMA", 0);
-                        this.ftxtFechaNacimiento.setText("");
-                        this.ftxtFechaNacimiento.requestFocus();
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "El Dia de la fecha ingresada no puede ser mayor al dia actual (0" + d + ")!!!", "AVISO DEL SISTEMA", 0);
-                        this.ftxtFechaNacimiento.setText("");
-                        this.ftxtFechaNacimiento.requestFocus();
-                    }
-                } else if ((anio == y) && (mes > m)) {
-                    if (m >= 10) {
-                        JOptionPane.showMessageDialog(rootPane, "El Mes de la fecha ingresada no puede ser mayor al mes actual (" + m + ")!!!", "AVISO DEL SISTEMA", 0);
-                        this.ftxtFechaNacimiento.setText("");
-                        this.ftxtFechaNacimiento.requestFocus();
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "El Mes de la fecha ingresada no puede ser mayor al mes actual (0" + m + ")!!!", "AVISO DEL SISTEMA", 0);
-                        this.ftxtFechaNacimiento.setText("");
-                        this.ftxtFechaNacimiento.requestFocus();
-                    }
-                } else {
-                    if (this.ftxtCelular.getText().equals("p")) {
-                        JOptionPane.showMessageDialog(rootPane, "Debe llenar el campo kilometraje!!", "AVISO DEL SISTEMA", 2);
-                        this.ftxtCelular.requestFocus();
-                    } else {
-                        if (rdbMasculino.isSelected()==true){
-                          cl.modificar(this.txtCodigoCliente.getText(), this.txtPrimerApellido.getText().toUpperCase(), this.txtSegundoApellido.getText().toUpperCase(), this.txtNombre.getText().toUpperCase(), this.ftxtFechaNacimiento.getText(), "M", this.ftxtCelular.getText()); }
-                        else{
-                          cl.modificar(this.txtCodigoCliente.getText(), this.txtPrimerApellido.getText().toUpperCase(), this.txtSegundoApellido.getText().toUpperCase(), this.txtNombre.getText().toUpperCase(), this.ftxtFechaNacimiento.getText(), "F", this.ftxtCelular.getText());}
-
-                        JOptionPane.showMessageDialog(rootPane, "El registro ha sido correctamente actualizado!!", "AVISO DEL SISTEMA", 1);
-                        txtCodigoCliente.setText("");
-                        Limpiar();
-                        Bloquear();
-                        prueba = false;
-                        newRecord = false;
-
-                    }
-                }
-            }
-        }
-    }//GEN-LAST:event_btnGuardarModificacionActionPerformed
-
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         //es porque ya encontre el registro buscado (codigo)    
         if (prueba == true) {
@@ -512,7 +392,7 @@ public class frmcarros extends javax.swing.JFrame {
                 this.btnNuevo.setVisible(true);
                 this.btnCancelar.setVisible(false);
                 this.btnGuardar.setVisible(true);
-                this.btnGuardarModificacion.setVisible(false);
+                this.btnver.setVisible(false);
                 prueba = false;
             }
         }
@@ -525,6 +405,15 @@ public class frmcarros extends javax.swing.JFrame {
     private void ftxtCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftxtCelularActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ftxtCelularActionPerformed
+
+    private void ftxtFechaNacimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftxtFechaNacimientoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ftxtFechaNacimientoActionPerformed
+
+    private void btnverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnverActionPerformed
+        vercarros jframe = new vercarros();
+            jframe.setVisible(true);
+    }//GEN-LAST:event_btnverActionPerformed
 
     /**
     * @param args the command line arguments
@@ -542,10 +431,10 @@ public class frmcarros extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnGuardarModificacion;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.ButtonGroup btngSexo;
+    private javax.swing.JButton btnver;
     private javax.swing.JFormattedTextField ftxtCelular;
     private javax.swing.JFormattedTextField ftxtFechaNacimiento;
     private javax.swing.JLabel jLabel1;
@@ -553,7 +442,6 @@ public class frmcarros extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTabbedPane jTabbedPane1;
